@@ -6,17 +6,26 @@ using TMPro;
 
 public class Weapon : MonoBehaviour
 {
-    [SerializeField] Camera FPCamera;
     [SerializeField] float range = 100f;
     [SerializeField] float damage = 20f;
+    [SerializeField] float timeBetweenShots = 0.5f;
+    [Header("Effects")]
     [SerializeField] ParticleSystem muzzleFlash;
     [SerializeField] GameObject hitFXPrefab;
+    [Header("Ammo Info")]
     [SerializeField] Ammo ammoSlot;
     [SerializeField] AmmoType ammoType;
-    [SerializeField] float timeBetweenShots = 0.5f;
     [SerializeField] TextMeshProUGUI ammoText;
 
+
+    Camera FPCamera;
     bool canShoot = true;
+
+    private void Awake()
+    {
+        FPCamera = GetComponentInParent<Camera>();
+        ammoSlot = GetComponentInParent<Ammo>();
+    }
 
     private void OnEnable()
     {
