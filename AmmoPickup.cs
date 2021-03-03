@@ -8,14 +8,14 @@ public class AmmoPickup : MonoBehaviour
     [SerializeField] AmmoType ammoType;
 
     Animator anim;
-    InteractionCanvas interationCanvas;
+    InteractionCanvas interactionCanvas;
     bool inRange = false;
 
     private void Awake()
     {
         anim = GetComponent<Animator>();
         anim.enabled = false;
-        interationCanvas = FindObjectOfType<InteractionCanvas>();
+        interactionCanvas = FindObjectOfType<InteractionCanvas>();
     }
 
     private void Update()
@@ -27,7 +27,7 @@ public class AmmoPickup : MonoBehaviour
     {
         if(other.gameObject.tag == "Player")
         {
-            interationCanvas.SwitchEnabledState();
+            interactionCanvas.SwitchEnabledState();
             inRange = true;
         }
     }
@@ -36,7 +36,7 @@ public class AmmoPickup : MonoBehaviour
     {
         if (other.gameObject.tag == "Player")
         {
-            interationCanvas.SwitchEnabledState();
+            interactionCanvas.SwitchEnabledState();
             inRange = false;
         }
     }
@@ -53,6 +53,6 @@ public class AmmoPickup : MonoBehaviour
 
     private void OnDestroy()
     {
-        interationCanvas.SwitchEnabledState();
+        interactionCanvas.SwitchEnabledState();
     }
 }

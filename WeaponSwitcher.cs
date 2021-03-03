@@ -5,6 +5,8 @@ public class WeaponSwitcher : MonoBehaviour
 {
     [SerializeField] int currentWeapon = 0;
     [SerializeField] TextMeshProUGUI ammoText;
+    [SerializeField] bool weaponAvailable = false;
+    [SerializeField] Canvas crosshairCanvas;
 
     void Start()
     {
@@ -17,6 +19,7 @@ public class WeaponSwitcher : MonoBehaviour
         ProcessKeyInput();
         ProcessScrollWheel();
         DisplayAmmoCanvas();
+        
 
         if(previousWeapon != currentWeapon)
         {
@@ -95,10 +98,12 @@ public class WeaponSwitcher : MonoBehaviour
         if(currentWeapon == 0)
         {
             ammoText.enabled = false;
+            crosshairCanvas.enabled = false;
         }
         else
         {
             ammoText.enabled = true;
+            crosshairCanvas.enabled = true;
         }
     }
 }

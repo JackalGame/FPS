@@ -6,6 +6,7 @@ using TMPro;
 
 public class Weapon : MonoBehaviour
 {
+    [SerializeField] bool automaticWeapon;
     [SerializeField] float range = 100f;
     [SerializeField] float damage = 20f;
     [SerializeField] float timeBetweenShots = 0.5f;
@@ -36,11 +37,10 @@ public class Weapon : MonoBehaviour
     {
         if (!ammoSlot) return;
         DisplayAmmo();
-        if (CrossPlatformInputManager.GetButtonDown("Fire1") && canShoot == true)
-        {
-            StartCoroutine(Shoot());
-        }
+        FireWeapon();
     }
+    
+
 
     private void DisplayAmmo()
     {
@@ -48,6 +48,23 @@ public class Weapon : MonoBehaviour
         ammoText.text = currentAmmo.ToString();
     }
 
+    private void FireWeapon()
+    {
+        if (!automaticWeapon)
+        {
+            if (CrossPlatformInputManager.GetButtonDown("Fire1") && canShoot == true)
+            {
+                StartCoroutine(Shoot());
+            }
+        }
+        else
+        {
+            if(CrossPlatformInputManager.GetButton("Fire1") && canShoot == true)
+            {
+                    StartCoroutine(Shoot());
+            }
+        }
+    }
     IEnumerator Shoot()
     {
         if (ammoSlot.GetCurrentAmmo(ammoType) >= 1)

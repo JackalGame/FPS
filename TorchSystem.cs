@@ -5,11 +5,12 @@ using UnityEngine;
 
 public class TorchSystem : MonoBehaviour
 {
-    [SerializeField] float lightDecay = 0.01f;
-    [SerializeField] float angleDecay = 0.1f;
+    [SerializeField] float lightDecay = 0.03f;
+    [SerializeField] float angleDecay = 0.15f;
     [SerializeField] float minimumAngle = 40f;
 
     Light myLight;
+    bool torchAvailable = false;
 
     void Start()
     {
@@ -19,11 +20,22 @@ public class TorchSystem : MonoBehaviour
 
     void Update()
     {
+        if (!torchAvailable) return;
+        if (myLight.intensity <= 0) return;
         ToggleLight();
         if(myLight.enabled)
         {
-            DecreaseLightIntensity();
-            DecreaseLightAngle();
+            TorchInUse();
+        }
+    }
+
+    private void TorchInUse()
+    {
+        DecreaseLightIntensity();
+        DecreaseLightAngle();
+        if (myLight.intensity <= 0)
+        {
+            myLight.enabled = false;
         }
     }
 
@@ -66,4 +78,8 @@ public class TorchSystem : MonoBehaviour
         myLight.intensity = intensityAmount;
     }
 
+    public void EnableTorchAccess()
+    {
+        torchAvailable = true;
+    }
 }
