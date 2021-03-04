@@ -15,11 +15,13 @@ public class EnemyHealth : MonoBehaviour
 
     public void TakeDamage(float damage)
     {
+        if (isDead) return;
         BroadcastMessage("OnDamageTaken");
         hp -= damage;
         if(hp <= 0)
         {
             Die();
+            FindObjectOfType<OpeningVillage>().DecreaseEnemiesRemaining();
         }
     }
 

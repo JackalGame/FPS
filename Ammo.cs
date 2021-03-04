@@ -17,7 +17,7 @@ public class Ammo : MonoBehaviour
 
     public int GetCurrentAmmo(AmmoType ammoType)
     {
-        return GetAmmoSlot(ammoType).ammoAmount;
+            return GetAmmoSlot(ammoType).ammoAmount;
     }
 
     public void ReduceCurrentAmmo(AmmoType ammoType)

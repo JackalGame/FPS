@@ -7,7 +7,7 @@ public class Lights : MonoBehaviour
     Transform player;
     float playerDistance;
     Light[] lights;
-
+    /*
     void Start()
     {
         player = FindObjectOfType<PlayerHealth>().transform;
@@ -33,4 +33,5 @@ public class Lights : MonoBehaviour
             }
         }
     }
+    */
 }
