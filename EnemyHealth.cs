@@ -30,5 +30,6 @@ public class EnemyHealth : MonoBehaviour
         if (isDead) return;
         isDead = true;
         GetComponent<Animator>().SetTrigger("dead");
+        GetComponent<CapsuleCollider>().enabled = false;
     }
 }

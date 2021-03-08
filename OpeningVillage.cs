@@ -15,13 +15,11 @@ public class OpeningVillage : MonoBehaviour
         {
             numberOfEnemiesRemaining++;
         }
-        Debug.Log(numberOfEnemiesRemaining);
     }
 
     public void DecreaseEnemiesRemaining()
     {
         numberOfEnemiesRemaining--;
-        Debug.Log(numberOfEnemiesRemaining);
         if(numberOfEnemiesRemaining <= 0)
         {
             Debug.Log("LEVEL COMPLETE... No enemies remaining");
