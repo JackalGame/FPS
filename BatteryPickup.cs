@@ -4,13 +4,16 @@ public class BatteryPickup : MonoBehaviour
 {
     [SerializeField] float restoreIntensity = 2;
     [SerializeField] float restoreAngle = 65;
+    [SerializeField] string pickupInfo = "Torch Restored";
 
     InteractionCanvas interactionCanvas;
+    TorchSystem torchSystem;
     bool inRange = false;
 
     private void Awake()
     {
         interactionCanvas = FindObjectOfType<InteractionCanvas>();
+        torchSystem = FindObjectOfType<TorchSystem>();
     }
 
     private void Update()
@@ -40,8 +43,10 @@ public class BatteryPickup : MonoBehaviour
     {
         if (inRange && Input.GetKeyDown(KeyCode.E))
         {
-            FindObjectOfType<TorchSystem>().RestoreLightAngle(restoreAngle);
-            FindObjectOfType<TorchSystem>().RestoreLightIntensity(restoreIntensity);
+            torchSystem.EnableTorchAccess();
+            torchSystem.RestoreLightAngle(restoreAngle);
+            torchSystem.RestoreLightIntensity(restoreIntensity);
+            FindObjectOfType<PickupObtainedCanvas>().ActivateCanvas(pickupInfo);
             Destroy(gameObject);
         }
     }

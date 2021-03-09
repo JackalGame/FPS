@@ -10,9 +10,13 @@ public class Weapon : MonoBehaviour
     [SerializeField] float range = 100f;
     [SerializeField] float damage = 20f;
     [SerializeField] float timeBetweenShots = 0.5f;
+
     [Header("Effects")]
     [SerializeField] ParticleSystem muzzleFlash;
     [SerializeField] GameObject hitFXPrefab;
+    AudioSource soundFX;
+    [SerializeField] AudioClip emptyAmmoSFX;
+
     [Header("Ammo Info")]
     [SerializeField] Ammo ammoSlot;
     [SerializeField] AmmoType ammoType;
@@ -26,6 +30,7 @@ public class Weapon : MonoBehaviour
     {
         FPCamera = GetComponentInParent<Camera>();
         ammoSlot = GetComponentInParent<Ammo>();
+        soundFX = GetComponent<AudioSource>();
     }
 
     private void OnEnable()
@@ -33,7 +38,7 @@ public class Weapon : MonoBehaviour
         canShoot = true;
     }
 
-    void Update()
+    void LateUpdate()
     {
         if (!ammoSlot) return;
         DisplayAmmo();
@@ -72,7 +77,13 @@ public class Weapon : MonoBehaviour
             canShoot = false;
             PlayMuzzleFlash();
             ProcessRaycast();
+            PlaySFX();
             ammoSlot.ReduceCurrentAmmo(ammoType);
+        }
+        else if(ammoSlot.GetCurrentAmmo(ammoType) < 1)
+        {
+            canShoot = false;
+            soundFX.PlayOneShot(emptyAmmoSFX, 0.75f);
         }
         yield return new WaitForSeconds(timeBetweenShots);
         canShoot = true;
@@ -81,6 +92,12 @@ public class Weapon : MonoBehaviour
     public float GetTimeBetweenShots()
     {
         return timeBetweenShots;
+    }
+
+    private void PlaySFX()
+    {
+        if (soundFX == null) return;
+        soundFX.Play();
     }
 
     private void PlayMuzzleFlash()

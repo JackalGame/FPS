@@ -6,6 +6,7 @@ public class AmmoPickup : MonoBehaviour
 {
     [SerializeField] int ammoAmount = 10;
     [SerializeField] AmmoType ammoType;
+    [SerializeField] string pickupInfo;
 
     Animator anim;
     InteractionCanvas interactionCanvas;
@@ -47,6 +48,7 @@ public class AmmoPickup : MonoBehaviour
         {
             anim.enabled = true;
             FindObjectOfType<Ammo>().AddAmmo(ammoType, ammoAmount);
+            FindObjectOfType<PickupObtainedCanvas>().ActivateCanvas(pickupInfo);
             Destroy(this);
         }
     }
