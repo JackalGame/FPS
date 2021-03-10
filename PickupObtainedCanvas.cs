@@ -27,7 +27,7 @@ public class PickupObtainedCanvas : MonoBehaviour
     {
         canvas.enabled = true;
         animator.SetTrigger("playAnim");
-        yield return new WaitForSeconds(3);
+        yield return new WaitForSeconds(3.5f);
         canvas.enabled = false;
     }
 }

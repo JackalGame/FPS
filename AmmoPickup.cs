@@ -10,13 +10,16 @@ public class AmmoPickup : MonoBehaviour
 
     Animator anim;
     InteractionCanvas interactionCanvas;
+    AudioSource audioSource;
     bool inRange = false;
+
 
     private void Awake()
     {
         anim = GetComponent<Animator>();
         anim.enabled = false;
         interactionCanvas = FindObjectOfType<InteractionCanvas>();
+        audioSource = GetComponent<AudioSource>();
     }
 
     private void Update()
@@ -47,6 +50,7 @@ public class AmmoPickup : MonoBehaviour
         if (inRange && Input.GetKeyDown(KeyCode.E))
         {
             anim.enabled = true;
+            audioSource.Play();
             FindObjectOfType<Ammo>().AddAmmo(ammoType, ammoAmount);
             FindObjectOfType<PickupObtainedCanvas>().ActivateCanvas(pickupInfo);
             Destroy(this);

@@ -6,6 +6,7 @@ public class HealthPickUp : MonoBehaviour
 {
     [SerializeField] int healthToAdd = 50;
     [SerializeField] string pickupInfo;
+    [SerializeField] AudioClip pickupSFX;
 
     InteractionCanvas interationCanvas;
     bool inRange = false;
@@ -42,6 +43,7 @@ public class HealthPickUp : MonoBehaviour
     {
         if (inRange && Input.GetKeyDown(KeyCode.E))
         {
+            AudioSource.PlayClipAtPoint(pickupSFX, transform.position);
             FindObjectOfType<PlayerHealth>().IncreaseHealth(healthToAdd);
             FindObjectOfType<PickupObtainedCanvas>().ActivateCanvas(pickupInfo);
             Destroy(gameObject);

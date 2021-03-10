@@ -1,11 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Playables;
 
 public class OpeningVillage : MonoBehaviour
 {
     [SerializeField] Transform enemyTranform;
-
+    
     int numberOfEnemiesRemaining;
 
     private void Start()
@@ -23,6 +24,7 @@ public class OpeningVillage : MonoBehaviour
         if(numberOfEnemiesRemaining <= 0)
         {
             Debug.Log("LEVEL COMPLETE... No enemies remaining");
+            FindObjectOfType<Timeline>().PlayTimeline();
         }
     }
 }

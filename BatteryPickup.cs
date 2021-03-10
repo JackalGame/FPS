@@ -5,6 +5,7 @@ public class BatteryPickup : MonoBehaviour
     [SerializeField] float restoreIntensity = 2;
     [SerializeField] float restoreAngle = 65;
     [SerializeField] string pickupInfo = "Torch Restored";
+    [SerializeField] AudioClip pickupSFX;
 
     InteractionCanvas interactionCanvas;
     TorchSystem torchSystem;
@@ -43,6 +44,7 @@ public class BatteryPickup : MonoBehaviour
     {
         if (inRange && Input.GetKeyDown(KeyCode.E))
         {
+            AudioSource.PlayClipAtPoint(pickupSFX,transform.position);
             torchSystem.EnableTorchAccess();
             torchSystem.RestoreLightAngle(restoreAngle);
             torchSystem.RestoreLightIntensity(restoreIntensity);

@@ -4,9 +4,13 @@ using UnityEngine;
 
 public class LevelComplete : MonoBehaviour
 {
+    [SerializeField] AudioClip successSFX;
+    [SerializeField] float sfxVolume = 0.7f;
+
+    
     InteractionCanvas interationCanvas;
     LevelCompleteCanvas levelCompleteCanvas;
-    
+    AudioSource[] audioSources;
     bool inRange = false;
 
     private void Awake()
@@ -43,12 +47,35 @@ public class LevelComplete : MonoBehaviour
         if (inRange && Input.GetKeyDown(KeyCode.E))
         {
             levelCompleteCanvas.EnableCanvas();
+            interationCanvas.SwitchEnabledState();
             Time.timeScale = 0;
+            FindObjectOfType<WeaponSwitcher>().enabled = false;
+            DisableWeapon();
+            ControlSounds();
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
         }
     }
 
-    private void OnDestroy()
+    private void ControlSounds()
     {
-        interationCanvas.SwitchEnabledState();
+        audioSources = FindObjectsOfType<AudioSource>();
+        foreach (AudioSource aSource in audioSources)
+        {
+            aSource.enabled = false;
+        }
+        AudioSource.PlayClipAtPoint(successSFX, transform.position, sfxVolume);
+    }
+
+    private void DisableWeapon()
+    {
+        if (FindObjectOfType<Weapon>())
+        {
+            enabled = false;
+        }
+        else
+        {
+            return;
+        }
     }
 }
