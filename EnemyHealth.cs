@@ -5,8 +5,10 @@ using UnityEngine;
 public class EnemyHealth : MonoBehaviour
 {
     [SerializeField] float hp = 100f;
+    [SerializeField] AudioClip damageSFX;
 
     bool isDead = false;
+    AudioSource audioSource;
 
     public bool IsDead()
     {
@@ -18,6 +20,7 @@ public class EnemyHealth : MonoBehaviour
         if (isDead) return;
         BroadcastMessage("OnDamageTaken");
         hp -= damage;
+        audioSource.PlayOneShot(damageSFX, 1);
         if(hp <= 0)
         {
             Die();

@@ -5,8 +5,8 @@ public class WeaponSwitcher : MonoBehaviour
 {
     [SerializeField] int currentWeapon = 0;
     [SerializeField] TextMeshProUGUI ammoText;
-    [SerializeField] bool weaponAvailable = false;
     [SerializeField] Canvas crosshairCanvas;
+    [SerializeField] AudioClip weaponChangeSFX;
 
     void Start()
     {
@@ -43,7 +43,7 @@ public class WeaponSwitcher : MonoBehaviour
             }
             weaponIndex++;
         }
-
+        AudioSource.PlayClipAtPoint(weaponChangeSFX, transform.position, 0.7f);
     }
     
     private void ProcessKeyInput()
@@ -105,5 +105,16 @@ public class WeaponSwitcher : MonoBehaviour
             ammoText.enabled = true;
             crosshairCanvas.enabled = true;
         }
+    }
+
+    public int ReturnCurrentWeapon()
+    {
+        return currentWeapon;
+    }
+
+    public void SetDefaultWeapon(int weaponIndex)
+    {
+        currentWeapon = weaponIndex;
+        SetWeaponActive();
     }
 }

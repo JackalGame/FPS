@@ -5,7 +5,6 @@ using UnityEngine.AI;
 public class EnemyAI : MonoBehaviour
 {
     [SerializeField] float chaseRange = 20f;
-    [SerializeField] float attackRange = 2f;
     [SerializeField] float turnSpeed = 5f;
 
     Animator anim;
