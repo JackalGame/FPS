@@ -6,48 +6,34 @@ public class PoliceLights : MonoBehaviour
 {
     [SerializeField] Light blueLight;
     [SerializeField] Light redLight;
-    [SerializeField] float changeRate = 10f;
-    [SerializeField] int disableDistance = 500;
-
-    Transform player;
-    float playerDistance;
+    [SerializeField] float changeRate = 0.8f;
 
     private void Awake()
     {
         blueLight.enabled = true;
         redLight.enabled = false;
-        player = FindObjectOfType<PlayerHealth>().transform;
     }
 
     void Start()
     {
-        InvokeRepeating("switchLight", 0, changeRate * Time.deltaTime);
+        StartCoroutine(SwitchLight());
     }
 
-    private void Update()
+    IEnumerator SwitchLight()
     {
-        playerDistance = Vector3.Distance(transform.position, player.position);
-
-        if (playerDistance > disableDistance)
+        while (true)
         {
-            Destroy(gameObject);
+            if (blueLight.enabled)
+            {
+                blueLight.enabled = false;
+                redLight.enabled = true;
+            }
+            else
+            {
+                blueLight.enabled = true;
+                redLight.enabled = false;
+            }
+            yield return new WaitForSeconds(changeRate);
         }
     }
-
-
-    private void switchLight()
-    {
-        if (blueLight.enabled)
-        {
-            blueLight.enabled = false;
-            redLight.enabled = true;
-        }
-        else
-        {
-            blueLight.enabled = true;
-            redLight.enabled = false;
-        }
-    }
-
-    
 }

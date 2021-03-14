@@ -14,6 +14,7 @@ public class InstructionCanvas : MonoBehaviour
 
     public void SwitchEnabledState()
     {
+        if (!canvas) return;
         if (canvas.enabled)
         {
             canvas.enabled = false;

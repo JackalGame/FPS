@@ -23,7 +23,6 @@ public class OpeningVillage : MonoBehaviour
         numberOfEnemiesRemaining--;
         if(numberOfEnemiesRemaining <= 0)
         {
-            Debug.Log("LEVEL COMPLETE... No enemies remaining");
             FindObjectOfType<Timeline>().PlayTimeline();
         }
     }

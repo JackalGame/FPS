@@ -7,6 +7,7 @@ public class WeaponSwitcher : MonoBehaviour
     [SerializeField] TextMeshProUGUI ammoText;
     [SerializeField] Canvas crosshairCanvas;
     [SerializeField] AudioClip weaponChangeSFX;
+    [SerializeField] float changeSFXVol = 0.3f;
 
     void Start()
     {
@@ -24,6 +25,7 @@ public class WeaponSwitcher : MonoBehaviour
         if(previousWeapon != currentWeapon)
         {
             SetWeaponActive();
+            AudioSource.PlayClipAtPoint(weaponChangeSFX, transform.position, changeSFXVol);
         }
     }
 
@@ -43,7 +45,6 @@ public class WeaponSwitcher : MonoBehaviour
             }
             weaponIndex++;
         }
-        AudioSource.PlayClipAtPoint(weaponChangeSFX, transform.position, 0.7f);
     }
     
     private void ProcessKeyInput()
@@ -116,5 +117,6 @@ public class WeaponSwitcher : MonoBehaviour
     {
         currentWeapon = weaponIndex;
         SetWeaponActive();
+        AudioSource.PlayClipAtPoint(weaponChangeSFX, transform.position, changeSFXVol);
     }
 }

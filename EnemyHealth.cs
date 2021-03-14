@@ -10,6 +10,11 @@ public class EnemyHealth : MonoBehaviour
     bool isDead = false;
     AudioSource audioSource;
 
+    private void Start()
+    {
+        audioSource = GetComponent<AudioSource>();
+    }
+
     public bool IsDead()
     {
         return isDead;

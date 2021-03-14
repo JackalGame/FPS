@@ -23,7 +23,7 @@ public class LevelLoader : MonoBehaviour
 
     public void ReloadGame()
     {
-        SceneManager.LoadScene(currentSceneIndex);
+        SceneManager.LoadScene(currentSceneIndex - 1);
         Time.timeScale = 1;
     }
 

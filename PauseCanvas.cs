@@ -4,7 +4,9 @@ using UnityEngine;
 
 public class PauseCanvas : MonoBehaviour
 {
+    [SerializeField] GameObject[] items;
     Canvas canvas;
+    
 
     private void Awake()
     {
@@ -25,15 +27,27 @@ public class PauseCanvas : MonoBehaviour
     {
         if (!canvas.enabled)
         {
+            PlayerState(false);
             canvas.enabled = true;
             Time.timeScale = 0;
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
         }
         else
         {
-            canvas.enabled = false;
+            PlayerState(true);
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
+            canvas.enabled = false;
             Time.timeScale = 1;
+        }
+    }
+
+    private void PlayerState(bool enabledBool)
+    {
+        foreach(GameObject i in items)
+        {
+            i.SetActive(enabledBool);
         }
     }
 }
